@@ -27,7 +27,8 @@
     *   The HF file is copied into the target directory. By default, it keeps its own filename, but you can choose to use the target's original filename.
 
 ## Usage
-(include these in the same flow to integrate with existing Jenkins automation pipeline)
+(include these in the same flow to integrate with existing Jenkins automation pipeline. Do note that the above parameters must be exposed to user via the Jenkins Build Job screen, with some fields defaulted for ease-of-use)
+
 1.  **Perms to make the script executable:**
     ```bash
     chmod +x AutoHotFix.sh
@@ -66,3 +67,27 @@ Run the script and let it guide you:
 
 ```bash
 ./AutoHotFix.sh
+```
+### 2. Dry Run for a Specific HotFix
+
+To see what changes would be made without actually performing them:
+
+```bash
+[DRY] Would create backup at: /path/to/my/hf/backup/20231027_103000
+Indexing target files (*.jar) under: /path/to/app/jars ...
+Scanning HF files (*.jar) under: /path/to/my/hf ...
+
+Match found:
+  TARGET: /path/to/app/jars/component-service-1.0.0.jar
+    (detected version: 1.0.0)
+     ---> will be replaced by HF: /path/to/my/hf/component-service-1.0.1-SNAPSHOT.jar
+    (detected version: 1.0.1-SNAPSHOT)
+Proceed? [y]es / [n]o / [a]ll (for this HF) / [s]kip all (for this HF) / [q]uit: y
+[DRY] mv -- '/path/to/app/jars/component-service-1.0.0.jar' '/path/to/my/hf/backup/20231027_103000/./'
+[DRY] cp -p -- '/path/to/my/hf/component-service-1.0.1-SNAPSHOT.jar' '/path/to/app/jars/component-service-1.0.1-SNAPSHOT.jar'
+
+Done.
+```
+
+[AI generated] workflow diagram
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/f10d0925-f4df-4882-be1f-e5f3357a7bb5" />
